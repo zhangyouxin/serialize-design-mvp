@@ -89,10 +89,10 @@ export function createRawWithdrawalRequestPackable(payload) {
       const fee = new Fee(rawWithdrawalRequest.getFee());
       return {
         nonce: payload.nonce.denormalize(rawWithdrawalRequest.getNonce().raw()),
-        capacity: payload.capacity.denormalize(rawWithdrawalRequest.getCapacity.raw()),
+        capacity: payload.capacity.denormalize(rawWithdrawalRequest.getCapacity().raw()),
         fee: {
-          sudt_id: payload.fee.sudt_id.denormalize(fee.getSudtId.raw()),
-          amount: payload.fee.amount.denormalize(fee.getAmount.raw()),
+          sudt_id: payload.fee.sudt_id.denormalize(fee.getSudtId().raw()),
+          amount: payload.fee.amount.denormalize(fee.getAmount().raw()),
         }
       }
     },
@@ -148,8 +148,8 @@ export function createFeePackable(payload) {
     unpack: (value) =>{
       const fee = new Fee(value);
       return {
-        sudt_id: payload.sudt_id.denormalize(fee.getSudtId.raw()),
-        amount: payload.amount.denormalize(fee.getAmount.raw()),
+        sudt_id: payload.sudt_id.denormalize(fee.getSudtId().raw()),
+        amount: payload.amount.denormalize(fee.getAmount().raw()),
       }
     },
     pack: (unpacked) =>  {
