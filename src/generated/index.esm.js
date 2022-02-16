@@ -88,21 +88,21 @@ export function createRawWithdrawalRequestPackable(payload) {
       const rawWithdrawalRequest = new RawWithdrawalRequest(value);
       const fee = new Fee(rawWithdrawalRequest.getFee());
       return {
-        nonce: payload.nonce.denormalize(rawWithdrawalRequest.getNonce().raw()),
-        capacity: payload.capacity.denormalize(rawWithdrawalRequest.getCapacity().raw()),
+        nonce: payload.nonce.denormalize(rawWithdrawalRequest.getNonce()),
+        capacity: payload.capacity.denormalize(rawWithdrawalRequest.getCapacity()),
         fee: {
-          sudt_id: payload.fee.sudt_id.denormalize(fee.getSudtId().raw()),
-          amount: payload.fee.amount.denormalize(fee.getAmount().raw()),
+          sudt_id: payload.fee.sudt_id.denormalize(fee.getSudtId()),
+          amount: payload.fee.amount.denormalize(fee.getAmount()),
         }
       }
     },
     pack: (unpacked) =>  {
       return serializeWithdrawalRequest({
-        nounce: payload.nonce.normalize(unpacked.nonce),
-        capacity: payload.capacity.normalize(unpacked.capacity),
+        nounce: payload.nonce.normalize(unpacked.nonce).raw(),
+        capacity: payload.capacity.normalize(unpacked.capacity).raw(),
         fee: {
-          sudt_id: payload.fee.sudt_id.normalize(unpacked.fee.sudt_id),
-          amount: payload.fee.amount.normalize(unpacked.fee.amount),
+          sudt_id: payload.fee.sudt_id.normalize(unpacked.fee.sudt_id).raw(),
+          amount: payload.fee.amount.normalize(unpacked.fee.amount).raw(),
         }
       })
     }

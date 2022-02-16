@@ -8,9 +8,9 @@ export interface CreateOptions {
   validate?: boolean;
 }
 
-interface Normalizer<T = unknown> {
-  normalize: (t: T) => ArrayBuffer;
-  denormalize: (buf: ArrayBuffer) => T;
+interface Normalizer<T, U = unknown> {
+  normalize: (obj: U) => T;
+  denormalize: (value: T) => U;
 }
 
 export function SerializeFee(value: object): ArrayBuffer;
@@ -22,8 +22,8 @@ export class Fee {
   getAmount(): Uint128;
 }
 interface FeeNormalizerType {
-  sudt_id: Normalizer;
-  amount: Normalizer;
+  sudt_id: Normalizer<Uint32>;
+  amount: Normalizer<Uint128>;
 }
 export function createFeePackable<T extends FeeNormalizerType>(
   payload: T,
@@ -48,11 +48,11 @@ export class RawWithdrawalRequest {
   getFee(): Fee;
 }
 interface WithdrawalNormalizerType {
-  nonce: Normalizer;
-  capacity: Normalizer;
+  nonce: Normalizer<Uint32>;
+  capacity: Normalizer<Uint64>;
   fee: {
-    sudt_id: Normalizer;
-    amount: Normalizer;
+    sudt_id: Normalizer<Uint32>;
+    amount: Normalizer<Uint128>;
   };
 }
 export function createRawWithdrawalRequestPackable<

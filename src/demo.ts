@@ -1,4 +1,5 @@
-import { createRawWithdrawalRequestPackable } from "./generated/index";
+import { Uint128 } from './generated/index.d';
+import { createRawWithdrawalRequestPackable, Uint32, Uint64 } from "./generated/index";
 import  * as NumberConvertor  from './NumberConvertor';
 import { BI } from '@ckb-lumos/lumos'
 
@@ -7,21 +8,21 @@ import { BI } from '@ckb-lumos/lumos'
 // NumberConvertor 是一个工具包，可以提供 Uint32 <--> ArrayBuffer, Uint32 <--> ArrayBuffer, Uint64 <--> ArrayBuffer, Uint128 <--> ArrayBuffer, Uint256 <--> ArrayBuffer 的转换
 const withdrawalReqeustPackable = createRawWithdrawalRequestPackable({ 
   nonce: {
-    normalize: (value: BI) => NumberConvertor.BIToUint32LEBuffer(value), // dummy
-    denormalize:(buf: ArrayBuffer) => NumberConvertor.Uint32LEBufferToBI(buf), // dummy
+    normalize: (value: BI) => new Uint32(NumberConvertor.BIToUint32LEBuffer(value)), // dummy
+    denormalize:(value: Uint32) => NumberConvertor.Uint32LEBufferToBI(value.raw()), // dummy
   },
   capacity: {
-    normalize: (value: BI) => NumberConvertor.BIToUint64LEBuffer(value), // dummy
-    denormalize:(buf: ArrayBuffer) => NumberConvertor.Uint64LEBufferToBI(buf), // dummy
+    normalize: (value: BI) => new Uint64(NumberConvertor.BIToUint64LEBuffer(value)), // dummy
+    denormalize:(value: Uint64) => NumberConvertor.Uint64LEBufferToBI(value.raw()), // dummy
   },
   fee: {
     sudt_id: {
-      normalize: (value: BI) => NumberConvertor.BIToUint32LEBuffer(value), // dummy
-      denormalize:(buf: ArrayBuffer) => NumberConvertor.Uint32LEBufferToBI(buf), // dummy
+      normalize: (value: BI) => new Uint32(NumberConvertor.BIToUint32LEBuffer(value)), // dummy
+      denormalize:(value: Uint32) => NumberConvertor.Uint32LEBufferToBI(value.raw()), // dummy
     },
     amount: {
-      normalize: (value: BI) => NumberConvertor.BIToUint128LEBuffer(value), // dummy
-      denormalize:(buf: ArrayBuffer) => NumberConvertor.Uint128LEBufferToBI(buf), // dummy
+      normalize: (value: BI) => new Uint128(NumberConvertor.BIToUint128LEBuffer(value)), // dummy
+      denormalize:(value: Uint128) => NumberConvertor.Uint128LEBufferToBI(value.raw()), // dummy
     },
   }
 })
